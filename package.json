@@ -4,7 +4,9 @@
   "description": "Basic starter for Node.JS projects",
   "main": "index.js",
   "scripts": {
-    "test": "tap"
+    "test": "tap",
+    "lint": "standard",
+    "lint-fix": "standard --fix"
   },
   "repository": {
     "type": "git",
