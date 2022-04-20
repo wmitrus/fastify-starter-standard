@@ -1,7 +1,32 @@
 {
+  "name": "basic_node-starter-standard-17",
+  "version": "1.0.0",
+  "description": "Basic starter for Node.JS projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wmitrus/basic_node-starter-standard-17.git"
+  },
+  "keywords": [
+    "basic",
+    "starter",
+    "node",
+    "nodejs",
+    "standard",
+    "standard.js"
+  ],
+  "author": "Wojciech Mitruś",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wmitrus/basic_node-starter-standard-17/issues"
+  },
+  "homepage": "https://github.com/wmitrus/basic_node-starter-standard-17#readme",
   "devDependencies": {
     "nodemon": "^2.0.15",
     "standard": "^17.0.0-2",
     "tap": "^16.0.1"
-  }
+  },
 }
