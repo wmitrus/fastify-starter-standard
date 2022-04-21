@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "basic_node-starter-standard-17",
   "version": "1.0.0",
   "description": "Basic starter for Node.JS projects",
