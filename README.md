@@ -62,7 +62,7 @@ For example: If you are going to use `GitHub` or `GitLab` then your defualt bran
 
 7. Push this repository to your remote
    ```plaintext
-   git push origin
+   git push --set-upstream origin main
    ```
 
 ### Keep only part of the commit history
@@ -103,7 +103,7 @@ For example: If you are going to use `GitHub` or `GitLab` then your defualt bran
 
 6. Push this repository to your remote
    ```plaintext
-   git push origin
+   git push --set-upstream origin main
    ```
 
 
@@ -132,5 +132,5 @@ For example: If you are going to use `GitHub` or `GitLab` then your defualt bran
 
 5. Push this repository to your remote
    ```plaintext
-   git push origin
+   git push --set-upstream origin main
    ```
