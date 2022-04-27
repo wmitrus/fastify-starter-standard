@@ -84,11 +84,8 @@ For example: If you are going to use `GitHub` or `GitLab` then your defualt bran
    ```
 
 4. Rebase history from chosen commit
-   ```plaintext
-   git rev-parse --verify master >> .git/info/grafts
-   git filter-branch -- --all
-   ```
-   or
+   run gitk tool and choose commit from which the repo should be rebased.
+
    ```plaintext
    git checkout --orphan temp COMMIT_ID
    git commit -m "Truncated history"
