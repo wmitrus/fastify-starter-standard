@@ -34,5 +34,8 @@
     "nodemon": "^2.0.15",
     "standard": "^17.0.0-2",
     "tap": "^16.0.1"
+  },
+  "dependencies": {
+    "fastify": "^3.28.0"
   }
 }
