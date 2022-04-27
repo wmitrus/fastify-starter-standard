@@ -6,8 +6,8 @@
   "description": "Basic starter for Node.JS projects",
   "main": "index.js",
   "scripts": {
-    "start": "node app",
-    "dev": "nodemon app",
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "tap",
     "lint": "standard",
     "lint-fix": "standard --fix"
