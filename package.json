@@ -36,6 +36,7 @@
     "tap": "^16.0.1"
   },
   "dependencies": {
+    "@fastify/helmet": "^8.0.0",
     "@fastify/swagger": "^6.0.0",
     "fastify": "^3.28.0"
   }
