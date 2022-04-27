@@ -1,13 +1,28 @@
-import { createServer } from 'http'
+import Fastify from 'fastify'
+import { createRequire } from 'module'
 
-const hostname = '127.0.0.1'
-const port = 3000
-
-const server = createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
+const fastify = Fastify({
+  logger: true
 })
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
+const require = createRequire(import.meta.url)
+
+fastify.register(require('@fastify/swagger'), {
+  exposeRoute: true,
+  routePrefix: '/docs'
 })
+
+fastify.get('/', async (request, reply) => {
+  return { hello: 'world' }
+})
+
+// Run the server!
+const start = async () => {
+  try {
+    await fastify.listen(3000)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
