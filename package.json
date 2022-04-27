@@ -36,6 +36,7 @@
     "tap": "^16.0.1"
   },
   "dependencies": {
-    "fastify": "^3.28.0"
+    "fastify": "^3.28.0",
+    "fastify-swagger": "^5.2.0"
   }
 }
