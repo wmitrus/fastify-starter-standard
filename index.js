@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
 import helmet from '@fastify/helmet'
-
+import fetch from 'node-fetch'
 // import { createRequire } from 'module'
 // const require = createRequire(import.meta.url)
 
@@ -25,7 +25,7 @@ fastify.register(import('@fastify/swagger'), {
   routePrefix: '/docs'
 })
 
-fastify.decorate('fetch', import('node-fetch'))
+fastify.decorate('fetch', fetch)
 await fastify.register(import('./src/plugins/config.js'))
 fastify.register(import('./src/routes/index.js'))
 fastify.register(import('./src/api/swapi.js'), {
