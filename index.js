@@ -1,6 +1,5 @@
 import Fastify from 'fastify'
 import helmet from '@fastify/helmet'
-import config from './plugins/config.js'
 
 // import { createRequire } from 'module'
 // const require = createRequire(import.meta.url)
@@ -26,8 +25,14 @@ fastify.register(import('@fastify/swagger'), {
   routePrefix: '/docs'
 })
 
-fastify.register(config)
-fastify.register(import('./routes/index.js'))
+fastify.register(import('./src/routes/index.js'))
+await fastify.register(import('./src/plugins/config.js'))
+
+await fastify.ready().then(() => {
+  fastify.log.info('Successfully booted!')
+}, (err) => {
+  fastify.log.error('An error happened!', err)
+})
 
 const start = async () => {
   try {
