@@ -25,6 +25,7 @@ fastify.register(import('@fastify/swagger'), {
   routePrefix: '/docs'
 })
 
+fastify.decorate('fetch', import('node-fetch'))
 await fastify.register(import('./src/plugins/config.js'))
 fastify.register(import('./src/routes/index.js'))
 fastify.register(import('./src/api/swapi.js'), {
