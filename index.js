@@ -25,8 +25,11 @@ fastify.register(import('@fastify/swagger'), {
   routePrefix: '/docs'
 })
 
-fastify.register(import('./src/routes/index.js'))
 await fastify.register(import('./src/plugins/config.js'))
+fastify.register(import('./src/routes/index.js'))
+fastify.register(import('./src/api/swapi.js'), {
+  prefix: '/api/v1'
+})
 
 await fastify.ready().then(() => {
   fastify.log.info('Successfully booted!')
