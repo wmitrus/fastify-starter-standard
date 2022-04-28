@@ -1,12 +1,13 @@
 import Fastify from 'fastify'
-import { createRequire } from 'module'
 import helmet from '@fastify/helmet'
+
+// import { createRequire } from 'module'
+// const require = createRequire(import.meta.url)
 
 const fastify = Fastify({
   logger: true
 })
 
-const require = createRequire(import.meta.url)
 fastify.register(helmet, {
   global: true,
   contentSecurityPolicy: {
@@ -18,16 +19,21 @@ fastify.register(helmet, {
     }
   }
 })
-fastify.register(require('@fastify/swagger'), {
+
+fastify.register(import('@fastify/swagger'), {
   exposeRoute: true,
   routePrefix: '/docs'
 })
 
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' }
+fastify.register(import('./src/routes/index.js'))
+await fastify.register(import('./src/plugins/config.js'))
+
+await fastify.ready().then(() => {
+  fastify.log.info('Successfully booted!')
+}, (err) => {
+  fastify.log.error('An error happened!', err)
 })
 
-// Run the server!
 const start = async () => {
   try {
     await fastify.listen(3000)
