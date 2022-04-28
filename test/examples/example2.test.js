@@ -1,5 +1,5 @@
 import tap from 'tap'
-import Bork from '../../examples/example2.js'
+import Bork from '../../src/examples/example2.js'
 
 const myBork = new Bork()
 
