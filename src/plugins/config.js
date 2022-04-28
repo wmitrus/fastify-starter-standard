@@ -1,8 +1,8 @@
-import config from 'config'
+import fp from 'fastify-plugin'
+import conf from 'config'
 
-async function plugin (fastify, opts) {
-  // your plugin code
-  fastify.decorate('config', config)
+async function config (fastify, opts) {
+  fastify.decorate('config', conf)
 }
 
-export default plugin
+export default fp(config)
