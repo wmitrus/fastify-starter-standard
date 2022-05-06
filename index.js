@@ -30,6 +30,21 @@ fastify.register(import('@fastify/swagger'), {
   routePrefix: '/docs'
 })
 
+fastify.decorate('fetch', fetch)
+
+// await fastify.register(import('./src/plugins/config.js'))
+await fastify.register(autoload, {
+  dir: join(__dirname, './src/plugins'),
+  ignorePattern: /.*test.js/
+})
+
+fastify.register(import('@fastify/redis'), {
+  host: fastify.config.get('redis.host'),
+  // password: '***',
+  port: fastify.config.get('redis.port'), // Redis port
+  family: 4 // 4 (IPv4) or 6 (IPv6)
+})
+
 fastify.register(autoload, {
   dir: join(__dirname, './src/routes'),
   ignorePattern: /.*test.js/
@@ -48,16 +63,6 @@ fastify.register(autoload, {
     }
     return folderName
   }
-})
-
-fastify.decorate('fetch', fetch)
-await fastify.register(import('./src/plugins/config.js'))
-
-fastify.register(import('@fastify/redis'), {
-  host: fastify.config.get('redis.host'),
-  // password: '***',
-  port: fastify.config.get('redis.port'), // Redis port
-  family: 4 // 4 (IPv4) or 6 (IPv6)
 })
 
 await fastify.ready().then(() => {
