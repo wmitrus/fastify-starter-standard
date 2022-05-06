@@ -43,10 +43,10 @@ fastify.register(autoload, {
   ignorePattern: /.*test.js/,
   dirNameRoutePrefix: function rewrite (folderParent, folderName) {
     console.log('Parent: ' + folderParent + ', Folder: ' + folderName)
-    if (folderName === 'v1') {
+    if (folderParent.includes('api') && folderName === 'v1') {
       return 'api/v1'
     }
-    if (folderName === 'v2') {
+    if (folderParent.includes('api') && folderName === 'v2') {
       return 'api/v2'
     }
     return folderName
