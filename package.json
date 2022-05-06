@@ -37,8 +37,10 @@
   },
   "dependencies": {
     "@fastify/helmet": "^8.0.0",
+    "@fastify/redis": "^5.0.0",
     "@fastify/swagger": "^6.0.0",
     "config": "^3.3.7",
-    "fastify": "^3.28.0"
+    "fastify": "^3.28.0",
+    "node-fetch": "^3.2.4"
   }
 }

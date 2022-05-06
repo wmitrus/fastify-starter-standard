@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
 import helmet from '@fastify/helmet'
-
+import fetch from 'node-fetch'
 // import { createRequire } from 'module'
 // const require = createRequire(import.meta.url)
 
@@ -25,8 +25,18 @@ fastify.register(import('@fastify/swagger'), {
   routePrefix: '/docs'
 })
 
-fastify.register(import('./src/routes/index.js'))
+fastify.decorate('fetch', fetch)
 await fastify.register(import('./src/plugins/config.js'))
+fastify.register(import('./src/routes/index.js'))
+fastify.register(import('@fastify/redis'), {
+  host: fastify.config.get('redis.host'),
+  // password: '***',
+  port: fastify.config.get('redis.port'), // Redis port
+  family: 4 // 4 (IPv4) or 6 (IPv6)
+})
+fastify.register(import('./src/api/swapi.js'), {
+  prefix: '/api/v1'
+})
 
 await fastify.ready().then(() => {
   fastify.log.info('Successfully booted!')
