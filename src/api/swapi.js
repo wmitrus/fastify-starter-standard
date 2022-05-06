@@ -158,10 +158,22 @@ const swapi = async (fastify, options) => {
 
   fastify.get('/swapi/films', swapiFilmsOpts, async (request, reply) => {
     try {
-    //   console.dir(swapiFilmsOpts, { depth: 8 })
-      const response = await fastify.fetch('https://swapi.dev/api/films')
-      const json = await response.json()
-      reply.send(json)
+      const { redis } = fastify
+      const key = request.url
+
+      const cache = await redis.get(key)
+      console.log(JSON.stringify(key))
+
+      if (!cache) {
+        fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
+        const response = await fastify.fetch('https://swapi.dev/api/films')
+        const json = await response.json()
+        redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+        reply.send(json)
+      } else {
+        fastify.log.info('Got a value from cache key: ', key)
+        reply.send(JSON.parse(cache))
+      }
     } catch (err) {
       console.log(err)
     }
