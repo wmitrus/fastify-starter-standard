@@ -13,9 +13,6 @@ const __dirname = dirname(__filename)
 const fastify = Fastify({
   logger: true
 })
-
-// fastify.register(import('./src/routes/index.js'))
-
 fastify.register(helmet, {
   global: true,
   contentSecurityPolicy: {
@@ -52,10 +49,6 @@ fastify.register(autoload, {
     return folderName
   }
 })
-
-// fastify.register(import('./src/api/v1/swapi.js'), {
-//   prefix: '/api/v1'
-// })
 
 fastify.decorate('fetch', fetch)
 await fastify.register(import('./src/plugins/config.js'))
