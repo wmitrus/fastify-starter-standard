@@ -160,18 +160,16 @@ const swapi = async (fastify, options) => {
     try {
       const { redis } = fastify
       const key = request.url
-
       const cache = await redis.get(key)
-      console.log(JSON.stringify(key))
 
       if (!cache) {
         fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
         const response = await fastify.fetch('https://swapi.dev/api/films')
         const json = await response.json()
-        redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+        redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
         reply.send(json)
       } else {
-        fastify.log.info('Got a value from cache key: ', key)
+        fastify.log.info({ msg: 'Got a value from cache.', key })
         reply.send(JSON.parse(cache))
       }
     } catch (err) {
@@ -192,7 +190,7 @@ const swapi = async (fastify, options) => {
         fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
         const response = await fastify.fetch('https://swapi.dev/api/films/' + id)
         const json = await response.json()
-        redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+        redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
         reply.send(json)
       } else {
         fastify.log.info('Got a value from cache key: ', key)
@@ -214,7 +212,7 @@ const swapi = async (fastify, options) => {
       fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
       const response = await fastify.fetch('https://swapi.dev/api/planets')
       const json = await response.json()
-      redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+      redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
       reply.send(json)
     } else {
       fastify.log.info('Got a value from cache key: ', key)
@@ -234,7 +232,7 @@ const swapi = async (fastify, options) => {
       fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
       const response = await fastify.fetch('https://swapi.dev/api/planets/' + id)
       const json = await response.json()
-      redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+      redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
       reply.send(json)
     } else {
       fastify.log.info('Got a value from cache key: ', key)
