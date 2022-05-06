@@ -152,6 +152,7 @@ const swapi = async (fastify, options) => {
       }
     } catch (err) {
       console.log(err)
+      reply.send(err)
     }
   })
 
