@@ -134,20 +134,46 @@ const swapiPlanetItemOpts = {
 const swapi = async (fastify, options) => {
   fastify.get('/swapi', swapiOpts, async (request, reply) => {
     try {
-      const response = await fastify.fetch('https://swapi.dev/api/')
-      const json = await response.json()
-      reply.send(json)
+      const { redis } = fastify
+      const key = request.url
+
+      const cache = await redis.get(key)
+      console.log(JSON.stringify(key))
+
+      if (!cache) {
+        fastify.log.debug("Couldn't find a value in cache. Fetching data from api.")
+        const response = await fastify.fetch('https://swapi.dev/api/')
+        const json = await response.json()
+        redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+        reply.send(json)
+      } else {
+        fastify.log.info('Got a value from cache key: ', key)
+        reply.send(JSON.parse(cache))
+      }
     } catch (err) {
       console.log(err)
+      reply.send(err)
     }
   })
 
   fastify.get('/swapi/films', swapiFilmsOpts, async (request, reply) => {
     try {
-    //   console.dir(swapiFilmsOpts, { depth: 8 })
-      const response = await fastify.fetch('https://swapi.dev/api/films')
-      const json = await response.json()
-      reply.send(json)
+      const { redis } = fastify
+      const key = request.url
+
+      const cache = await redis.get(key)
+      console.log(JSON.stringify(key))
+
+      if (!cache) {
+        fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
+        const response = await fastify.fetch('https://swapi.dev/api/films')
+        const json = await response.json()
+        redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+        reply.send(json)
+      } else {
+        fastify.log.info('Got a value from cache key: ', key)
+        reply.send(JSON.parse(cache))
+      }
     } catch (err) {
       console.log(err)
     }
@@ -155,26 +181,65 @@ const swapi = async (fastify, options) => {
 
   fastify.get('/swapi/films/:id', swapiFilmItem, async (request, reply) => {
     try {
+      const { redis } = fastify
+      const key = request.url
       const id = request.params.id
-      const response = await fastify.fetch('https://swapi.dev/api/films/' + id)
-      const json = await response.json()
-      reply.send(json)
+
+      const cache = await redis.get(key)
+      console.log(JSON.stringify(key))
+
+      if (!cache) {
+        fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
+        const response = await fastify.fetch('https://swapi.dev/api/films/' + id)
+        const json = await response.json()
+        redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+        reply.send(json)
+      } else {
+        fastify.log.info('Got a value from cache key: ', key)
+        reply.send(JSON.parse(cache))
+      }
     } catch (err) {
       console.log(err)
     }
   })
 
   fastify.get('/swapi/planets', swapiPlanetsOpts, async (request, reply) => {
-    const response = await fastify.fetch('https://swapi.dev/api/planets')
-    const json = await response.json()
-    reply.send(json)
+    const { redis } = fastify
+    const key = request.url
+
+    const cache = await redis.get(key)
+    console.log(JSON.stringify(key))
+
+    if (!cache) {
+      fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
+      const response = await fastify.fetch('https://swapi.dev/api/planets')
+      const json = await response.json()
+      redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+      reply.send(json)
+    } else {
+      fastify.log.info('Got a value from cache key: ', key)
+      reply.send(JSON.parse(cache))
+    }
   })
 
   fastify.get('/swapi/planets/:id', swapiPlanetItemOpts, async (request, reply) => {
+    const { redis } = fastify
+    const key = request.url
     const id = request.params.id
-    const response = await fastify.fetch('https://swapi.dev/api/planets/' + id)
-    const json = await response.json()
-    reply.send(json)
+
+    const cache = await redis.get(key)
+    console.log(JSON.stringify(key))
+
+    if (!cache) {
+      fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
+      const response = await fastify.fetch('https://swapi.dev/api/planets/' + id)
+      const json = await response.json()
+      redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
+      reply.send(json)
+    } else {
+      fastify.log.info('Got a value from cache key: ', key)
+      reply.send(JSON.parse(cache))
+    }
   })
 }
 
