@@ -136,9 +136,7 @@ const swapi = async (fastify, options) => {
     try {
       const { redis } = fastify
       const key = request.url
-
       const cache = await redis.get(key)
-      console.log(JSON.stringify(key))
 
       if (!cache) {
         fastify.log.debug("Couldn't find a value in cache. Fetching data from api.")
@@ -151,7 +149,7 @@ const swapi = async (fastify, options) => {
         reply.send(JSON.parse(cache))
       }
     } catch (err) {
-      console.log(err)
+      fastify.log.error(err)
       reply.send(err)
     }
   })
@@ -173,7 +171,7 @@ const swapi = async (fastify, options) => {
         reply.send(JSON.parse(cache))
       }
     } catch (err) {
-      console.log(err)
+      fastify.log.error(err)
     }
   })
 
@@ -182,9 +180,7 @@ const swapi = async (fastify, options) => {
       const { redis } = fastify
       const key = request.url
       const id = request.params.id
-
       const cache = await redis.get(key)
-      console.log(JSON.stringify(key))
 
       if (!cache) {
         fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
@@ -197,16 +193,14 @@ const swapi = async (fastify, options) => {
         reply.send(JSON.parse(cache))
       }
     } catch (err) {
-      console.log(err)
+      fastify.log.error(err)
     }
   })
 
   fastify.get('/swapi/planets', swapiPlanetsOpts, async (request, reply) => {
     const { redis } = fastify
     const key = request.url
-
     const cache = await redis.get(key)
-    console.log(JSON.stringify(key))
 
     if (!cache) {
       fastify.log.info("Couldn't find a value in cache. Fetching data from api.")
@@ -226,7 +220,6 @@ const swapi = async (fastify, options) => {
     const id = request.params.id
 
     const cache = await redis.get(key)
-    console.log(JSON.stringify(key))
 
     if (!cache) {
       fastify.log.info("Couldn't find a value in cache. Fetching data from api.")

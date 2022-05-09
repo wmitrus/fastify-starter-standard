@@ -74,7 +74,6 @@ fastify.register(autoload, {
   dir: join(__dirname, './src/api'),
   ignorePattern: /.*test.js/,
   dirNameRoutePrefix: function rewrite (folderParent, folderName) {
-    console.log('Parent: ' + folderParent + ', Folder: ' + folderName)
     if (folderParent.includes('api') && folderName === 'v1') {
       return 'api/v1'
     }
