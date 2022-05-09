@@ -4,14 +4,34 @@ import helmet from '@fastify/helmet'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import fetch from 'node-fetch'
+import moment from 'moment'
+
 // import { createRequire } from 'module'
 // const require = createRequire(import.meta.url)
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+const TODAY = moment(new Date().getTime()).format('YYYY-MM-DD')
+
+const loggerConf = {
+  level: 'info',
+  timestamp: () => {
+    const TS_HMS = new Date().toISOString()
+    return ', "time":"' + TS_HMS + '"'
+  },
+  file: `logs/main-${TODAY}.log`,
+  mkdir: true,
+  redact: ['req.headers.authorization'],
+  formatters: {
+    level: label => {
+      return { level: label }
+    }
+  }
+}
+
 const fastify = Fastify({
-  logger: true
+  logger: loggerConf
 })
 fastify.register(helmet, {
   global: true,
