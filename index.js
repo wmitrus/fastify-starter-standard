@@ -66,6 +66,11 @@ fastify.register(import('@fastify/redis'), {
 })
 
 fastify.register(autoload, {
+  dir: join(__dirname, './src/controllers'),
+  ignorePattern: /.*test.js/
+})
+
+fastify.register(autoload, {
   dir: join(__dirname, './src/routes'),
   ignorePattern: /.*test.js/
 })
@@ -88,6 +93,7 @@ await fastify.ready().then(() => {
   fastify.log.info('Successfully booted!')
 }, (err) => {
   fastify.log.error('An error happened!', err)
+  fastify.log.error(err)
 })
 
 const start = async () => {
