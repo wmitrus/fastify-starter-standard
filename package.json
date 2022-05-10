@@ -1,9 +1,9 @@
 {
   "$schema": "./package-schema.json",
   "type": "module",
-  "name": "basic_node-starter-standard-17",
+  "name": "fastify-starter-standard",
   "version": "1.0.0",
-  "description": "Basic starter for Node.JS projects",
+  "description": "Fastify starter for Node.JS projects",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wmitrus/basic_node-starter-standard-17.git"
+    "url": "git+https://github.com/wmitrus/fastify-starter-standard.git"
   },
   "keywords": [
     "basic",
@@ -27,9 +27,9 @@
   "author": "Wojciech Mitruś",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wmitrus/basic_node-starter-standard-17/issues"
+    "url": "https://github.com/wmitrus/fastify-starter-standard/issues"
   },
-  "homepage": "https://github.com/wmitrus/basic_node-starter-standard-17#readme",
+  "homepage": "https://github.com/wmitrus/fastify-starter-standard#readme",
   "devDependencies": {
     "nodemon": "^2.0.15",
     "standard": "^17.0.0-2",
