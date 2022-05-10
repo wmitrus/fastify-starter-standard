@@ -71,6 +71,11 @@ fastify.register(autoload, {
 })
 
 fastify.register(autoload, {
+  dir: join(__dirname, './src/schemas'),
+  ignorePattern: /.*test.js/
+})
+
+fastify.register(autoload, {
   dir: join(__dirname, './src/routes'),
   ignorePattern: /.*test.js/
 })
