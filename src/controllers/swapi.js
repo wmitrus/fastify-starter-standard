@@ -16,7 +16,7 @@ const swapiController = async (fastify, options) => {
           redis.set(request.query.key, JSON.stringify(json), 'EX', 60 * 5)
           reply.send(json)
         } else {
-          fastify.log.info('Got a value from cache key: ', key)
+          fastify.log.info({ msg: 'Got a value from cache', key })
           reply.send(JSON.parse(cache))
         }
       } catch (err) {
@@ -37,7 +37,7 @@ const swapiController = async (fastify, options) => {
           redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
           reply.send(json)
         } else {
-          fastify.log.info({ msg: 'Got a value from cache.', key })
+          fastify.log.info({ msg: 'Got a value from cache', key })
           reply.send(JSON.parse(cache))
         }
       } catch (err) {
@@ -59,7 +59,7 @@ const swapiController = async (fastify, options) => {
           redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
           reply.send(json)
         } else {
-          fastify.log.info('Got a value from cache key: ', key)
+          fastify.log.info({ msg: 'Got a value from cache', key })
           reply.send(JSON.parse(cache))
         }
       } catch (err) {
@@ -79,7 +79,7 @@ const swapiController = async (fastify, options) => {
         redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
         reply.send(json)
       } else {
-        fastify.log.info('Got a value from cache key: ', key)
+        fastify.log.info({ msg: 'Got a value from cache', key })
         reply.send(JSON.parse(cache))
       }
     },
@@ -98,7 +98,7 @@ const swapiController = async (fastify, options) => {
         redis.set(key, JSON.stringify(json), 'EX', 60 * 5)
         reply.send(json)
       } else {
-        fastify.log.info('Got a value from cache key: ', key)
+        fastify.log.info({ msg: 'Got a value from cache', key })
         reply.send(JSON.parse(cache))
       }
     }
