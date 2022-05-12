@@ -29,18 +29,10 @@ const app = async (fastify, options) => {
 
   fastify.decorate('fetch', fetch)
 
-  // await fastify.register(import('./src/plugins/config.js'))
   await fastify.register(autoload, {
     dir: join(__dirname, './src/plugins'),
     ignorePattern: /.*test.js/
   })
-
-  //   fastify.register(import('fastify/redis'), {
-  //     host: fastify.config.get('redis.host'),
-  //     // password: '***',
-  //     port: fastify.config.get('redis.port'),
-  //     family: 4 // 4 (IPv4) or 6 (IPv6)
-  //   })
 
   fastify.register(import('fastify/redis'), fastify.config.get('redis'))
 
