@@ -1,5 +1,6 @@
 'use strict'
 
+import proxy from 'fastify/http-proxy'
 import autoload from 'fastify/autoload'
 import helmet from 'fastify/helmet'
 import fetch from 'node-fetch'
@@ -20,6 +21,12 @@ const app = async (fastify, options) => {
         scriptSrc: ['\'self\'', 'https: \'unsafe-inline\'']
       }
     }
+  })
+
+  fastify.register(proxy, {
+    upstream: '',
+    prefix: '/api/v1', // optional
+    http2: false // optional
   })
 
   fastify.register(import('fastify/swagger'), {
