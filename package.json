@@ -8,8 +8,8 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "tap --nyc-arg=--all",
-    "cover": "tap --nyc-arg=--all --cov --coverage-report=lcov",
+    "test": "tap --nyc-arg=--all --100",
+    "cover": "tap --nyc-arg=--all --cov --coverage-report=text",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
