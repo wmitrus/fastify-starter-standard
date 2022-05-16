@@ -8,9 +8,11 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "c8 --reporter=lcov tap --no-coverage",
-    "cover": "c8 tap   --no-coverage",
-    "posttest": "c8 --reporter=lcov tap --no-coverage | codecov --disable=gcov --pipe",
+    "test": "c8 --reporter=text tap --no-coverage",
+    "coveralls": "c8 --reporter=text-lcov tap --no-coverage | coveralls",
+    "codecov": "c8 --reporter=text-lcov tap --no-coverage | codecov --disable=gcov --pipe",
+    "cover": "c8 tap --no-coverage",
+    "posttest_ok": "c8 report --reporter=lcov  tap --no-coverage | codecov --disable=gcov --pipe",
     "posttest_old": "tap --nyc-arg=--all --coverage-report=text-lcov | codecov --disable=gcov --pipe",
     "lint": "standard",
     "lint-fix": "standard --fix"
