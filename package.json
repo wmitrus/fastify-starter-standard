@@ -5,15 +5,19 @@
   "version": "1.0.0",
   "description": "Fastify starter for Node.JS projects",
   "main": "index.js",
+  "tap": {
+    "test-env": [
+      "ESM_DISABLE_CACHE=1"
+    ]
+  },
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "c8 --reporter=text tap --no-coverage",
-    "coveralls": "c8 --reporter=text-lcov tap --no-coverage | coveralls",
+    "test": "cross-env NODE_ENV=development c8 --reporter lcov --reporter text --report-dir coverage tap --no-coverage",
+    "coverage": "codecov",
+    "coveralls": "c8 --reporter lcov --reporter text --report-dir coverage report",
     "codecov": "c8 --reporter=text-lcov tap --no-coverage | codecov --disable=gcov --pipe",
     "cover": "c8 tap --no-coverage",
-    "posttest_ok": "c8 report --reporter=lcov  tap --no-coverage | codecov --disable=gcov --pipe",
-    "posttest_old": "tap --nyc-arg=--all --coverage-report=text-lcov | codecov --disable=gcov --pipe",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
@@ -39,6 +43,7 @@
     "c8": "^7.11.2",
     "codecov": "^3.8.3",
     "coveralls": "^3.1.1",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.15",
     "standard": "^17.0.0-2",
     "tap": "^16.0.1"
