@@ -65,9 +65,9 @@ const app = async (fastify, options) => {
       if (folderParent.includes('api') && folderName === 'v1') {
         return 'api/v1'
       }
-      if (folderParent.includes('api') && folderName === 'v2') {
-        return 'api/v2'
-      }
+      // if (folderParent.includes('api') && folderName === 'v2') {
+      //   return 'api/v2'
+      // }
       return folderName
     }
   })
