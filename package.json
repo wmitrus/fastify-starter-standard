@@ -6,6 +6,7 @@
   "description": "Fastify starter for Node.JS projects",
   "main": "index.js",
   "tap": {
+    "check-coverage": false,
     "test-env": [
       "ESM_DISABLE_CACHE=1"
     ]
@@ -13,11 +14,11 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "cross-env NODE_ENV=development c8 --reporter lcov --reporter text --report-dir coverage tap --no-coverage",
-    "coverage": "codecov",
-    "coveralls": "c8 --reporter lcov --reporter text --report-dir coverage report",
+    "test": "cross-env COVERALLS_REPO_TOKEN='' c8 --reporter text tap --no-cov || true",
+    "posttest": "npm run coveralls && npm run codecov",
+    "coveralls": "cross-env c8 --reporter text-lcov --report-dir coverage report | coveralls",
     "codecov": "c8 --reporter=text-lcov tap --no-coverage | codecov --disable=gcov --pipe",
-    "cover": "c8 tap --no-coverage",
+    "cover": "cross-env COVERALLS_REPO_TOKEN='' c8 tap --no-cov",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
@@ -42,7 +43,6 @@
   "devDependencies": {
     "c8": "^7.11.2",
     "codecov": "^3.8.3",
-    "coveralls": "^3.1.1",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.15",
     "standard": "^17.0.0-2",
