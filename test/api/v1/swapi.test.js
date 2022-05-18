@@ -1,10 +1,11 @@
 import { test } from 'tap'
 import build from './../../helper.js'
 
-test('Testing swapi', async () => {
-  test('Default root route', async (t) => {
+test('Default root route', async () => {
+  test('First call, no cache', async (t) => {
     const app = await build(t)
-
+    // Clear cache
+    app.redis.del('/api/v1/swapi')
     const res = await app.inject({
       url: '/api/v1/swapi'
     })
@@ -19,7 +20,7 @@ test('Testing swapi', async () => {
     // })
   })
 
-  test('Reading from cache: Default root route', async (t) => {
+  test('Second call should use cache', async (t) => {
     const app = await build(t)
 
     const res = await app.inject({
@@ -27,8 +28,21 @@ test('Testing swapi', async () => {
     })
     t.same(res.statusCode, 200)
   })
+})
 
-  test('Films route', async (t) => {
+test('Films route', async () => {
+  test('First call, no cache', async (t) => {
+    const app = await build(t)
+    // Clear cache
+    app.redis.del('/api/v1/swapi/films')
+    const res = await app.inject({
+      url: '/api/v1/swapi/films'
+    })
+
+    t.same(res.statusCode, 200)
+  })
+
+  test('Second call should use cache', async (t) => {
     const app = await build(t)
 
     const res = await app.inject({
@@ -37,18 +51,21 @@ test('Testing swapi', async () => {
 
     t.same(res.statusCode, 200)
   })
+})
 
-  test('Reading from cache: Films route', async (t) => {
+test('Film route', async () => {
+  test('First call, no cache', async (t) => {
     const app = await build(t)
-
+    // Clear cache
+    app.redis.del('/api/v1/swapi/films/1')
     const res = await app.inject({
-      url: '/api/v1/swapi/films'
+      url: '/api/v1/swapi/films/1'
     })
 
     t.same(res.statusCode, 200)
   })
 
-  test('Film route', async (t) => {
+  test('Second call should use cache', async (t) => {
     const app = await build(t)
 
     const res = await app.inject({
@@ -57,18 +74,21 @@ test('Testing swapi', async () => {
 
     t.same(res.statusCode, 200)
   })
+})
 
-  test('Reading from cache: Film route', async (t) => {
+test('Planets route', async () => {
+  test('First call, no cache', async (t) => {
     const app = await build(t)
-
+    // Clear cache
+    app.redis.del('/api/v1/swapi/planets')
     const res = await app.inject({
-      url: '/api/v1/swapi/films/1'
+      url: '/api/v1/swapi/planets'
     })
 
     t.same(res.statusCode, 200)
   })
 
-  test('Planets route', async (t) => {
+  test('Second call should use cache', async (t) => {
     const app = await build(t)
 
     const res = await app.inject({
@@ -77,20 +97,13 @@ test('Testing swapi', async () => {
 
     t.same(res.statusCode, 200)
   })
+})
 
-  test('Reading from cache: Planets route', async (t) => {
+test('Planet route', async () => {
+  test('First call, no cache', async (t) => {
     const app = await build(t)
-
-    const res = await app.inject({
-      url: '/api/v1/swapi/planets'
-    })
-
-    t.same(res.statusCode, 200)
-  })
-
-  test('Planet route', async (t) => {
-    const app = await build(t)
-
+    // Clear cache
+    app.redis.del('/api/v1/swapi/planets/1')
     const res = await app.inject({
       url: '/api/v1/swapi/planets/1'
     })
@@ -98,7 +111,7 @@ test('Testing swapi', async () => {
     t.same(res.statusCode, 200)
   })
 
-  test('Reading from cache: Planet route', async (t) => {
+  test('Second call should use cache', async (t) => {
     const app = await build(t)
 
     const res = await app.inject({
