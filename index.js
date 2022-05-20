@@ -28,6 +28,10 @@ const fastify = Fastify({
   logger: loggerConf
 })
 
+fastify.addHook('onRoute', (routeOptions) => {
+  console.log(routeOptions.path)
+})
+
 await fastify.register(import('./app.js'))
 
 await fastify.ready().then(() => {

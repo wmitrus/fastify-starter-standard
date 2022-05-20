@@ -1,5 +1,8 @@
 'use strict'
 
+import dotenv from 'dotenv'
+import cors from 'fastify/cors'
+import jwt from 'fastify/jwt'
 import proxy from 'fastify/http-proxy'
 import autoload from 'fastify/autoload'
 import helmet from 'fastify/helmet'
@@ -7,10 +10,15 @@ import fetch from 'node-fetch'
 import fp from 'fastify-plugin'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
+
+dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const app = async (fastify, options) => {
+  fastify.register(cors, { origin: '*' })
+  fastify.register(jwt, { secret: process.env.JWT_SECRET })
+
   fastify.register(helmet, {
     global: true,
     contentSecurityPolicy: {
@@ -52,7 +60,7 @@ const app = async (fastify, options) => {
     dir: join(__dirname, './src/schemas'),
     ignorePattern: /.*test.js/
   })
-
+  // fastify.register(import('./src/routes/private.js'))
   fastify.register(autoload, {
     dir: join(__dirname, './src/routes'),
     ignorePattern: /.*test.js/
