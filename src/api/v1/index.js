@@ -1,5 +1,5 @@
 
-const swapi = async (fastify, options) => {
+const signup = async (fastify, options) => {
   const signupOpts = {
 
     handler: async (request, reply) => {
@@ -11,4 +11,4 @@ const swapi = async (fastify, options) => {
   fastify.get('/signup', signupOpts)
 }
 
-export default swapi
+export default signup

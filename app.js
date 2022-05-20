@@ -53,29 +53,33 @@ const app = async (fastify, options) => {
 
   fastify.register(autoload, {
     dir: join(__dirname, './src/controllers'),
+    forceESM: true,
     ignorePattern: /.*test.js/
   })
 
   fastify.register(autoload, {
     dir: join(__dirname, './src/schemas'),
+    forceESM: true,
     ignorePattern: /.*test.js/
   })
   // fastify.register(import('./src/routes/private.js'))
   fastify.register(autoload, {
-    dir: join(__dirname, './src/routes'),
+    dir: join(__dirname, 'src/routes'),
+    forceESM: true,
     ignorePattern: /.*test.js/
   })
 
   fastify.register(autoload, {
-    dir: join(__dirname, './src/api'),
+    dir: join(__dirname, 'src/api'),
+    forceESM: true,
     ignorePattern: /.*test.js/,
     dirNameRoutePrefix: function rewrite (folderParent, folderName) {
       if (folderParent.includes('api') && folderName === 'v1') {
         return 'api/v1'
       }
-      // if (folderParent.includes('api') && folderName === 'v2') {
-      //   return 'api/v2'
-      // }
+      if (folderParent.includes('api') && folderName === 'v2') {
+        return 'api/v2'
+      }
       return folderName
     }
   })
