@@ -15,6 +15,19 @@ When you upgrade, consider running standard --fix to automatically format your c
 
 [Click here](https://standardjs.com/changelog.html) to see all details
 
+## Features
+- [standard](https://standardjs.com/) integration
+- [config](https://github.com/node-config/node-config) utility
+- [autoload](https://github.com/fastify/fastify-autoload) routes, plugins, api routes
+- [@fastify/sensible](https://github.com/fastify/fastify-sensible) for some useful utilities to your Fastify instance
+- [tap](https://www.fastify.io/docs/latest/Guides/Testing/) for testing
+- [@fastify/swagger](https://github.com/fastify/fastify-swagger) for api documentation
+- [@fastify/helmet](https://github.com/fastify/fastify-helmet) for secure your apps by setting various HTTP headers (preconfigured for swagger)
+- [@fastify/redis](https://github.com/fastify/fastify-redis) for response caching
+- [@fastify/jwt](https://github.com/fastify/fastify-jwt) for simple token authorization
+- [@fastify/cors]()
+- [codecov](https://about.codecov.io/) and [coveralls](https://coveralls.io/) integration
+
 ## How to use this template for new projects
 The way that you can use it depends on whether you want to keep repo history.
 
